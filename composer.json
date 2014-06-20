@@ -1,0 +1,18 @@
+{
+    "name": "tomaj/nette-images",
+    "type": "library",
+    "description": "Images library.",
+    "keywords": ["nette", "images"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tomas Majer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "autoload": {
+        "classmap": ["src/"] 
+    }
+}
