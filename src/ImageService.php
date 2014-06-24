@@ -12,11 +12,11 @@ class ImageService
 	/** @var \Tomaj\Image\BackendInterface  */
 	private $backend;
 
-    /** @var string */
-    private $storePath;
+	/** @var string */
+	private $storePath;
 
-    /** @var array */
-    private $thumbTypes;
+	/** @var array */
+	private $thumbTypes;
 
 	/** @var int  */
 	private $imageQuality = 100;
@@ -24,9 +24,9 @@ class ImageService
 	public function __construct(\Tomaj\Image\Backend\BackendInterface $backend, $storePath, $thumbTypes = array(), $imageQuality = 100)
 	{
 		$this->backend = $backend;
-        $this->storePath = $storePath;
-        $this->thumbTypes = $thumbTypes;
-        $this->imageQuality = $imageQuality;
+		$this->storePath = $storePath;
+		$this->thumbTypes = $thumbTypes;
+		$this->imageQuality = $imageQuality;
 	}
 
 	/**
@@ -41,17 +41,17 @@ class ImageService
 	 */
 	public function store($sourceFile, $orginalName, $deleteOrginalFile = FALSE)
 	{
-        $path = $this->processStorePath($this->storePath, $orginalName);
+		$path = $this->processStorePath($this->storePath, $orginalName);
 
-        $thumbs = $this->createThumbs($sourceFile);
+		$thumbs = $this->createThumbs($sourceFile);
 
-        $identifier = $this->backend->save($sourceFile, $orginalName, $path, $thumbs);
+		$identifier = $this->backend->save($sourceFile, $orginalName, $path, $thumbs);
 
-        if ($deleteOrginalFile) {
+		if ($deleteOrginalFile) {
 			FileSystem::delete($sourceFile);
-        }
+		}
 
-        return $identifier;
+		return $identifier;
 	}
 
 	/**
@@ -62,9 +62,9 @@ class ImageService
 	 * @throws \Nette\IOException
 	 */
 	public function storeNetteFile(\Nette\Http\FileUpload $file)
-    {
+	{
 		return $this->store($file->getTemporaryFile(), $file->getName(), TRUE);
-    }
+	}
 
 	public function regenerateThumb($identifier, $type)
 	{
@@ -80,15 +80,15 @@ class ImageService
 	 * @throws \Nette\IOException
 	 */
 	private function createThumbs($sourceFile)
-    {
-        $resultThumbs = array();
-        foreach ($this->thumbTypes as $type) {
+	{
+		$resultThumbs = array();
+		foreach ($this->thumbTypes as $type) {
 			$filePath = $this->tmpFile();
 			$this->createThumb($sourceFile, $filePath, $type);
-            $resultThumbs[$type] = $filePath;
-        }
-        return $resultThumbs;
-    }
+			$resultThumbs[$type] = $filePath;
+		}
+		return $resultThumbs;
+	}
 
 	private function createThumb($originalFile, $targetPath, $type)
 	{
@@ -109,31 +109,31 @@ class ImageService
 	protected function getResizeType($resizeType)
 	{
 		if ($resizeType) {
-			if ($resizeType == 'FIT')         return Image::FIT;
-			if ($resizeType == 'FILL')        return Image::FILL;
-			if ($resizeType == 'EXACT')       return Image::EXACT;
+			if ($resizeType == 'FIT')		 return Image::FIT;
+			if ($resizeType == 'FILL')		return Image::FILL;
+			if ($resizeType == 'EXACT')	   return Image::EXACT;
 			if ($resizeType == 'SHRINK_ONLY') return Image::SHRING_ONLY;
-			if ($resizeType == 'STRETCH')     return Image::STRETCH;
+			if ($resizeType == 'STRETCH')	 return Image::STRETCH;
 		}
 		return Image::EXACT;
 	}
 
 	public function url($identifier, $thumb = NULL)
 	{
-        return $this->backend->url($identifier, $thumb);
+		return $this->backend->url($identifier, $thumb);
 	}
 
-    private function processStorePath($storePath, $tmpFileName)
-    {
-        $replace = array(
-            ':year' => date('Y'),
-            ':month' => date('m'),
-            ':day' => date('d'),
-            ':hash' => md5($tmpFileName . time() . Random::generate(32)),
-            ':filename' => Strings::toAscii($tmpFileName), // todo remove all bad characters - maybe nette function (need dependencies)
-        );
-        return str_replace(array_keys($replace), array_values($replace), $storePath);
-    }
+	private function processStorePath($storePath, $tmpFileName)
+	{
+		$replace = array(
+			':year' => date('Y'),
+			':month' => date('m'),
+			':day' => date('d'),
+			':hash' => md5($tmpFileName . time() . Random::generate(32)),
+			':filename' => Strings::toAscii($tmpFileName), // todo remove all bad characters - maybe nette function (need dependencies)
+		);
+		return str_replace(array_keys($replace), array_values($replace), $storePath);
+	}
 
 	private function tmpFile($length = 32)
 	{

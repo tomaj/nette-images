@@ -28,30 +28,30 @@ class FileBackend implements BackendInterface
 
 	public function save($sourceFile, $originalName, $path, $thumbs = array())
 	{
-        if (!file_exists($this->root)) {
-            throw new \Nette\IOException("FileBackend root doesn't exists '{$this->root}'");
-        }
+		if (!file_exists($this->root)) {
+			throw new \Nette\IOException("FileBackend root doesn't exists '{$this->root}'");
+		}
 
-        if (!file_exists($sourceFile)) {
-            throw new \Nette\IOException("Source file '$sourceFile' doesn't exists ");
-        }
+		if (!file_exists($sourceFile)) {
+			throw new \Nette\IOException("Source file '$sourceFile' doesn't exists ");
+		}
 
 		FileSystem::createDir($this->root . $path);
 		$originalName = Strings::toAscii($originalName);
-        $targetFile = $path . DIRECTORY_SEPARATOR . $originalName;
-        $targetFullPath = $this->root  . $targetFile;
+		$targetFile = $path . DIRECTORY_SEPARATOR . $originalName;
+		$targetFullPath = $this->root  . $targetFile;
 
 		FileSystem::copy($sourceFile, $targetFullPath);
 
-        foreach ($thumbs as $thumb => $thumbPath) {
-            if (!file_exists($thumbPath)) {
-                throw new \Nette\IOException("Thumb doesn't exists '$thumbPath'");
-            }
-            $targetThumbPath = $this->root . $path . DIRECTORY_SEPARATOR . $thumb . '_' . $originalName;
+		foreach ($thumbs as $thumb => $thumbPath) {
+			if (!file_exists($thumbPath)) {
+				throw new \Nette\IOException("Thumb doesn't exists '$thumbPath'");
+			}
+			$targetThumbPath = $this->root . $path . DIRECTORY_SEPARATOR . $thumb . '_' . $originalName;
 			FileSystem::copy($thumbPath, $targetThumbPath);
-        }
+		}
 
-        return $path . DIRECTORY_SEPARATOR . $originalName;
+		return $path . DIRECTORY_SEPARATOR . $originalName;
 	}
 
 	public function saveThumb($thumbPath, $identifier, $type)
@@ -60,14 +60,14 @@ class FileBackend implements BackendInterface
 		FileSystem::rename($thumbPath, $targetThumbPath, TRUE);
 	}
 
-    public function url($identifier, $thumb = NULL)
-    {
-        if ($thumb) {
-            return $this->url . '/' . $this->getThumbPath($identifier, $thumb);
-        } else {
-            return $this->url . '/' . $identifier;
-        }
-    }
+	public function url($identifier, $thumb = NULL)
+	{
+		if ($thumb) {
+			return $this->url . '/' . $this->getThumbPath($identifier, $thumb);
+		} else {
+			return $this->url . '/' . $identifier;
+		}
+	}
 
 	public function localFile($idenfier)
 	{
