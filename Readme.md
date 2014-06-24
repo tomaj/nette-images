@@ -9,7 +9,7 @@ Instalacia
 
 Najlepsie cez composer
 ```
-doplnit kod ked bude libka v composeri
+composer require tomaj/nette-images
 ```
 
 Nastavenie
@@ -114,11 +114,4 @@ TODO - co by bolo dobre este doriesit
 
 1. Aktualne sa vsety thumby generuju napevno ako **.jpg**
 2. Treba doplnit funkcie pre mazanie obrazkov z backendu a upravu obrazku v backende
-3. Pri generovani thumbov sa nasstavuje ImageQuality ktora je teraz napevno *80* v *ImageService*
-4. Treba testnut mazanie temporarnych suborov/foldrov
-5. Treba testnut ako sa sprava service ked dostane obrazky s diakritikou
-6. Treba testnut ako sa sprava ked dostane velke obrazky
-7. Treba testnut ako sa sprava ked dostane nevalidne obrazky z ktorych sa neda spravit thumb
-8. Treba testnut ako sa sprava ked dostane v mene suboru znak '_'
-
 
