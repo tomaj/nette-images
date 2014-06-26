@@ -4,6 +4,13 @@ Nette Image
 Specialna kniznica pre lahsiu pracu s obrazkami. Umoznuje ukladat obrazky do roznych storagov a roznej struktury.
 Rovnako umoznuje vytvarat priamo k obrazkom rozne thumby.
 
+[![Build Status](https://secure.travis-ci.org/tomaj/nette-images.png)](http://travis-ci.org/tomaj/nette-images)
+[![Dependency Status](https://www.versioneye.com/php/tomaj:nette-images/1.0.1/badge.svg)](https://www.versioneye.com/php/tomaj:nette-images/1.0.1)
+
+[![Latest Stable Version](https://poser.pugx.org/tomaj/nette-images/v/stable.svg)](https://packagist.org/packages/tomaj/nette-images)
+[![Latest Unstable Version](https://poser.pugx.org/tomaj/nette-images/v/unstable.svg)](https://packagist.org/packages/tomaj/nette-images)
+[![License](https://poser.pugx.org/tomaj/nette-images/license.svg)](https://packagist.org/packages/tomaj/nette-images)
+
 Instalacia
 ----------
 
