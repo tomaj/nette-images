@@ -11,8 +11,8 @@ use Tomaj\Image\ImageService;
  */
 class Image
 {
-	public static function thumb(ImageService $imageService, $identifier, $size = NULL)
-	{
-		return $imageService->url($identifier, $size);
-	}
+    public static function thumb(ImageService $imageService, $identifier, $size = null)
+    {
+        return $imageService->url($identifier, $size);
+    }
 }
